@@ -1,0 +1,31 @@
+services:
+  jupyter:
+    container_name: jupyter-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/workspace
+    environment:
+      - JUPYTER_TOKEN=
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+
+  app:
+    container_name: noBadWords-app
+    build: .
+    volumes:
+      - .:/app
+    command: python main.py
+    #. → your local folder (where docker-compose.yml is)
+    #/app → inside the container
+
+
+#Start everything:
+  # docker compose up --build
+# Only Jupyter:
+  # docker compose up jupyter
+# Only app:
+  # docker compose up app
