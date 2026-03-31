@@ -17,15 +17,9 @@ services:
     container_name: noBadWords-app
     build: .
     volumes:
-      - .:/app
+      - .:/app  # local folder : container
     command: python main.py
-    #. → your local folder (where docker-compose.yml is)
-    #/app → inside the container
 
-
-#Start everything:
-  # docker compose up --build
-# Only Jupyter:
-  # docker compose up jupyter
-# Only app:
-  # docker compose up app
+# Start everything: docker compose up --build
+# Only Jupyter: docker compose up jupyter
+# Only app: docker compose up app
