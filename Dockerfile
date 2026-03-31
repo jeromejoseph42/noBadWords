@@ -12,5 +12,5 @@ CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-r
 
 # To build and run the Docker container, use the following commands:
 # docker build -t my-jupyter .
-# docker run -it --rm -p 8888:8888 -v "%cd%":/app my-jupyter
+# docker run -it --rm -p 8888:8888 -v "${PWD}:/app" myimage
 # http://localhost:8888/lab?token=
