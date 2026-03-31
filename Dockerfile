@@ -9,6 +9,8 @@ RUN pip install --no-cache-dir -r requirements.txt \
 COPY . .
 
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+
+# To build and run the Docker container, use the following commands:
 # docker build -t my-jupyter .
-# docker run -it --rm -p 10000:8888 -v "%cd%":/app my-jupyter
-# http://localhost:10000/lab?token=
+# docker run -it --rm -p 8888:8888 -v "%cd%":/app my-jupyter
+# http://localhost:8888/lab?token=
