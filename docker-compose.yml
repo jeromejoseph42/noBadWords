@@ -3,7 +3,7 @@ services:
     container_name: jupyter-dev
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     ports:
       - "8888:8888"
     volumes:
@@ -15,10 +15,13 @@ services:
 
   app:
     container_name: noBadWords-app
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
     volumes:
       - .:/app  # local folder : container
-    command: python main.py
 
 # Start everything: docker compose up --build
 # Only Jupyter: docker compose up jupyter
