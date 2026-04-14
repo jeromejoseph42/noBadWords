@@ -1,5 +1,6 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 import numpy as np
+import asyncio
 
 app = FastAPI()
 
@@ -7,6 +8,14 @@ app = FastAPI()
 async def audio_stream(websocket: WebSocket):
     await websocket.accept()
     print("Client connected")
+
+    # FIX: periodic ping to keep the connection alive through Docker's network
+    async def keepalive():
+        while True:
+            await asyncio.sleep(20)
+            await websocket.send_text("ping")
+
+    keepalive_task = asyncio.create_task(keepalive())
 
     try:
         while True:
@@ -21,3 +30,6 @@ async def audio_stream(websocket: WebSocket):
 
     except Exception as e:
         print("Unexpected error:", e)
+
+    finally:
+        keepalive_task.cancel()
